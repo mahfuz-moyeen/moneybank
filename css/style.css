@@ -33,13 +33,15 @@ header h1{
 }
 
 /* save section  */
-
+.save-section{
+    
+}
 .save-section input{
     width: 100px;
     text-align: center;
     border-radius: 5px;
 }
-#save-button{
+.save-section button{
     color: #FFFFFF;
     padding: 10px 30px;
     background: #ff3e03;
