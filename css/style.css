@@ -1,3 +1,39 @@
 body{
     font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;;
+}
+
+.image-section img{
+    border-radius: 20px;
+}
+
+/* calculator section  */
+.calculator-section input{
+    padding: 10px;
+    background: #DCDCDC;
+    border-radius: 5px;
+    margin: 20px 2px 20px 15px;
+}
+.calculator-section{
+    background-color: #F8F8F8;
+}
+#calculate-button{
+    color: #FFFFFF;
+    padding: 10px 30px;
+    background: #ff3e03;
+    border-radius: 5px;
+}
+
+/* save section  */
+
+.save-section input{
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+}
+#save-button{
+    color: #FFFFFF;
+    padding: 10px 30px;
+    background: #ff3e03;
+    border-radius: 5px;
 }
