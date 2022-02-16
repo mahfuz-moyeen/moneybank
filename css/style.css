@@ -7,7 +7,10 @@ body{
 header h1{
     color: #ff3e03;
 }
-
+main{
+    width: 80%;
+    margin:0 auto;
+}
 /* image section  */
 .image-section img{
     border-radius: 20px;
@@ -15,11 +18,15 @@ header h1{
 }
 
 /* calculator section  */
+.calculator-section p{
+    font-size: 16px;
+    margin: 10px;
+}
 .calculator-section input{
     padding: 10px;
     background: #DCDCDC;
     border-radius: 5px;
-    margin: 20px 2px 2px 15px;
+    margin: 10px;
 }
 .calculator-section{
     background-color: #F8F8F8;
@@ -34,14 +41,9 @@ header h1{
 
 /* save section  */
 
-.save-section input{
-    width: 100px;
-    text-align: center;
-    border-radius: 5px;
-}
 .save-section button{
     color: #FFFFFF;
-    padding: 10px 30px;
+    padding: 10px 20px;
     background: #ff3e03;
     border-radius: 5px;
 }
