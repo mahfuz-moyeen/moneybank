@@ -1,14 +1,19 @@
+/// all funtion ///
+
 // get  input id value
 function getInputValue(inputId){
     const inputText = document.getElementById(inputId);
     const inputNumber = parseFloat(inputText.value);
+    //error check
     if(inputNumber >= 0){
         return inputNumber;
     }
     else{
         alert('Write a positive number in " '+ inputId +' "');
+        
     }
 }
+
 // get id innerText value
 function getTextValue(textId){
     const text = document.getElementById(textId);
@@ -16,15 +21,34 @@ function getTextValue(textId){
     return textValue;
 }
 
+// check balance
+function checkBalance(amount,color,showDisplay,displayType){
+    amount.style.color = color;
+    document.getElementById(showDisplay).style.display = displayType;
+}
+
+
+
+//// button event ////
+
+
 //calculate button
 document.getElementById('calculate-button').addEventListener('click',function(){
     // total expenses
-    const totalExpenses = document.getElementById('total-expenses')
+    const totalExpenses = document.getElementById('total-expenses');
     totalExpenses.innerText = getInputValue('food-input') + getInputValue('rent-input') + getInputValue('clothes-input');
 
     //balance 
     const balanceAmount = document.getElementById('balance');
-    balanceAmount.innerText = getInputValue('income-input') - getTextValue('total-expenses');
+    //error check
+    if(getTextValue('total-expenses') <= getInputValue('income-input') ){
+        balanceAmount.innerText = getInputValue('income-input') - getTextValue('total-expenses');
+        checkBalance(totalExpenses,'black','expenses-error','none');
+    }
+    else{
+        balanceAmount.innerText = '00';
+        checkBalance(totalExpenses,'red','expenses-error','block');
+    }
 });
 
 //save button 
@@ -35,5 +59,14 @@ document.getElementById('save-button').addEventListener('click', function(){
 
     // remain amount 
     const remainAmount = document.getElementById('remain-amount');
-    remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
+    
+    //error check
+    if(getTextValue('save-amount') <= getTextValue('balance') ){
+        remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
+        checkBalance(saveAmount,'black','saving-error','none');
+    }
+    else{
+        remainAmount.innerText = '00';
+        checkBalance(saveAmount,'red','saving-error','block');
+    }
 });
