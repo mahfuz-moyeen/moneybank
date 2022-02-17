@@ -21,6 +21,7 @@ function getInputValue(inputId){
     if (inputText.value == ''){
         errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
         errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
+        errorDisplay('save-amount', 'saving-error', 'saving-error', false);
     }
     else {
         //error check
@@ -31,6 +32,7 @@ function getInputValue(inputId){
         else {
             errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
             errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
+            errorDisplay('save-amount', 'saving-error', 'saving-error', false);
         }
     }
 };
@@ -58,8 +60,10 @@ document.getElementById('calculate-button').addEventListener('click', function (
         if (totalExpensesNumber <= incomeAmount) {
             balanceAmount.innerText = incomeAmount - getTextValue('total-expenses');
             errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
+            errorDisplay('balance', 'expenses-error', 'expenses-error', false);
         }
         else {
+            balanceAmount.innerText = '00';
             errorDisplay('total-expenses', 'expenses-error', 'expenses-error', true);
         }
     }
@@ -83,10 +87,12 @@ document.getElementById('save-button').addEventListener('click', function () {
         if (getTextValue('save-amount') <= getTextValue('balance')) {
             remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
             errorDisplay('save-amount', 'saving-error', 'saving-error', false);
+            errorDisplay('balance', 'saving-error', 'saving-error', false);
         }
         else {
             remainAmount.innerText = '00';
             errorDisplay('save-amount', 'saving-error', 'saving-error', true);
+            errorDisplay('balance', 'saving-error', 'saving-error', true);
         }
     }
     else {
