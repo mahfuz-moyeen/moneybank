@@ -1,7 +1,7 @@
 /// all funtion ///
 
 // check error display
-function errorDisplay(amount, displayId, border, isError){
+function errorDisplay(amount, displayId, border, isError) {
     if (isError == true) {
         document.getElementById(amount).style.color = 'red';
         document.getElementById(displayId).style.display = 'block';
@@ -15,17 +15,17 @@ function errorDisplay(amount, displayId, border, isError){
 };
 
 // get  input id value
-function getInputValue(inputId){
+function getInputValue(inputId) {
     const inputText = document.getElementById(inputId);
     const inputNumber = parseFloat(inputText.value);
-    if (inputText.value == ''){
+    if (inputText.value == '') {
         errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
         errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
         errorDisplay('save-amount', 'saving-error', 'saving-error', false);
     }
     else {
         //error check
-        if (inputText.value >= 0){
+        if (inputText.value >= 0) {
             errorDisplay(inputId + '-error', inputId + '-error', inputId, false);
             return inputNumber;
         }
@@ -38,14 +38,14 @@ function getInputValue(inputId){
 };
 
 // get id innerText value
-function getTextValue(textId){
+function getTextValue(textId) {
     const text = document.getElementById(textId);
     const textValue = parseFloat(text.innerText);
     return textValue;
 };
 
 //calculate button
-document.getElementById('calculate-button').addEventListener('click', function (){
+document.getElementById('calculate-button').addEventListener('click', function () {
     // total expenses
     const totalExpenses = document.getElementById('total-expenses');
     const totalExpensesNumber = getInputValue('food-input') + getInputValue('rent-input') + getInputValue('clothes-input');
@@ -77,12 +77,12 @@ document.getElementById('calculate-button').addEventListener('click', function (
 document.getElementById('save-button').addEventListener('click', function () {
     // save amount
     const saveAmount = document.getElementById('save-amount');
-    const saveAmountNumbet = getInputValue('income-input') * (getInputValue('save-input') / 100);
+    const saveAmountNumber = getInputValue('income-input') * (getInputValue('save-input') / 100);
     // remain amount 
     const remainAmount = document.getElementById('remain-amount');
     //error check
-    if (saveAmountNumbet >= 0) {
-        saveAmount.innerText = saveAmountNumbet;
+    if (saveAmountNumber >= 0) {
+        saveAmount.innerText = saveAmountNumber;
         //error check
         if (getTextValue('save-amount') <= getTextValue('balance')) {
             remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
@@ -95,7 +95,8 @@ document.getElementById('save-button').addEventListener('click', function () {
             errorDisplay('balance', 'saving-error', 'saving-error', true);
         }
     }
-    else {
-        saveAmount.innerHTML = '00'
+    else if(saveAmountNumber.typeof != 'number'){
+        saveAmount.innerText = '00';
+        remainAmount.innerText = '00';
     }
 });
