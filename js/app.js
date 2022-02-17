@@ -14,25 +14,53 @@ function errorDisplay(amount, displayId, border, isError) {
     }
 };
 
+//input error
+function inputError(idName,isTrue){
+    if(isTrue==true){
+        errorDisplay(idName +'-error', idName+'-error', idName, true);
+    }
+    else{
+        errorDisplay(idName +'-error', idName+'-error', idName, false);
+    }
+};
+
+// math error display
+function mathError(displayName,errorId,isTrue){
+    if(isTrue==true){
+    errorDisplay(displayName, errorId +'-error', errorId +'-error', true);
+    }
+    else{
+    errorDisplay(displayName, errorId +'-error', errorId +'-error', false);
+    }
+};
+
 // get  input id value
 function getInputValue(inputId) {
     const inputText = document.getElementById(inputId);
     const inputNumber = parseFloat(inputText.value);
+
+    if(isNaN(inputText.value) == true){
+        inputError(inputId,true);
+        document.getElementById(inputId+'-error-type').innerText = 'not acceptable';
+        
+    }
     if (inputText.value == '') {
-        errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
-        errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
-        errorDisplay('save-amount', 'saving-error', 'saving-error', false);
+        inputError(inputId,true);
+        mathError('total-expenses','expenses',false);
+        mathError('save-amount','saving', false);
+        document.getElementById(inputId+'-error-type').innerText = 'fill up';
     }
     else {
         //error check
         if (inputText.value >= 0) {
-            errorDisplay(inputId + '-error', inputId + '-error', inputId, false);
+            inputError(inputId,false);
             return inputNumber;
         }
         else {
-            errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
-            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
-            errorDisplay('save-amount', 'saving-error', 'saving-error', false);
+            inputError(inputId,true);
+            mathError('total-expenses','expenses',false);
+            mathError('save-amount', 'saving', false);
+            document.getElementById(inputId+'-error-type').innerText = 'not nagative value';
         }
     }
 };
@@ -59,12 +87,12 @@ document.getElementById('calculate-button').addEventListener('click', function (
         //error check
         if (totalExpensesNumber <= incomeAmount) {
             balanceAmount.innerText = incomeAmount - getTextValue('total-expenses');
-            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
-            errorDisplay('balance', 'expenses-error', 'expenses-error', false);
+            mathError('total-expenses','expenses',false);
+            mathError('balance','expenses', false);
         }
         else {
             balanceAmount.innerText = '00';
-            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', true);
+            mathError('total-expenses','expenses',true);
         }
     }
     else {
@@ -86,13 +114,13 @@ document.getElementById('save-button').addEventListener('click', function () {
         //error check
         if (getTextValue('save-amount') <= getTextValue('balance')) {
             remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
-            errorDisplay('save-amount', 'saving-error', 'saving-error', false);
-            errorDisplay('balance', 'saving-error', 'saving-error', false);
+            mathError('save-amount','saving',false);
+            mathError('balance', 'saving', false);
         }
         else {
             remainAmount.innerText = '00';
-            errorDisplay('save-amount', 'saving-error', 'saving-error', true);
-            errorDisplay('balance', 'saving-error', 'saving-error', true);
+            mathError('save-amount', 'saving', true);
+            mathError('balance', 'saving', true);
         }
     }
     else if(saveAmountNumber.typeof != 'number'){
