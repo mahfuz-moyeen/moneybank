@@ -10,7 +10,7 @@ function getInputValue(inputId){
     }
     else{
         alert('Write a positive number in " '+ inputId +' "');
-        
+        return false;
     }
 }
 
@@ -36,7 +36,14 @@ function checkBalance(amount,color,showDisplay,displayType){
 document.getElementById('calculate-button').addEventListener('click',function(){
     // total expenses
     const totalExpenses = document.getElementById('total-expenses');
-    totalExpenses.innerText = getInputValue('food-input') + getInputValue('rent-input') + getInputValue('clothes-input');
+    const totalExpensesNumber = getInputValue('food-input') + getInputValue('rent-input') + getInputValue('clothes-input');
+    
+    if(totalExpensesNumber == 'NaN'){
+        totalExpenses.innerText = '00';
+    }
+    else{
+        totalExpenses.innerText = totalExpensesNumber;
+    }
 
     //balance 
     const balanceAmount = document.getElementById('balance');
@@ -55,7 +62,14 @@ document.getElementById('calculate-button').addEventListener('click',function(){
 document.getElementById('save-button').addEventListener('click', function(){
     // save amount
     const saveAmount = document.getElementById('save-amount');
-    saveAmount.innerText = getInputValue('income-input') * ( getInputValue('save-input') / 100);
+    const saveAmountNumbet = getInputValue('income-input') * ( getInputValue('save-input') / 100);
+
+    if(saveAmountNumbet == 'NaN'){
+        saveAmount.innerHTML= '00'
+    }
+    else{
+        saveAmount.innerText = saveAmountNumbet;
+    }
 
     // remain amount 
     const remainAmount = document.getElementById('remain-amount');
