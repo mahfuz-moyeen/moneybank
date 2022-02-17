@@ -1,86 +1,93 @@
 /// all funtion ///
 
+// check error display
+function errorDisplay(amount, displayId, border, isError){
+    if (isError == true) {
+        document.getElementById(amount).style.color = 'red';
+        document.getElementById(displayId).style.display = 'block';
+        document.getElementById(border).style.border = '2px solid red';
+    }
+    else {
+        document.getElementById(amount).style.color = 'black';
+        document.getElementById(displayId).style.display = 'none';
+        document.getElementById(border).style.border = 'none';
+    }
+};
+
 // get  input id value
 function getInputValue(inputId){
     const inputText = document.getElementById(inputId);
     const inputNumber = parseFloat(inputText.value);
-    //error check
-    if(inputNumber >= 0){
-        return inputNumber;
+    if (inputText.value == ''){
+        errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
     }
-    else{
-        alert('Write a positive number in " '+ inputId +' "');
-        return false;
+    else {
+        //error check
+        if (inputText.value >= 0){
+            errorDisplay(inputId + '-error', inputId + '-error', inputId, false);
+            return inputNumber;
+        }
+        else {
+            errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
+        }
     }
-}
+};
 
 // get id innerText value
 function getTextValue(textId){
     const text = document.getElementById(textId);
     const textValue = parseFloat(text.innerText);
     return textValue;
-}
-
-// check balance
-function checkBalance(amount,color,showDisplay,displayType){
-    amount.style.color = color;
-    document.getElementById(showDisplay).style.display = displayType;
-}
-
-
-
-//// button event ////
-
+};
 
 //calculate button
-document.getElementById('calculate-button').addEventListener('click',function(){
+document.getElementById('calculate-button').addEventListener('click', function (){
     // total expenses
     const totalExpenses = document.getElementById('total-expenses');
     const totalExpensesNumber = getInputValue('food-input') + getInputValue('rent-input') + getInputValue('clothes-input');
-    
-    if(totalExpensesNumber == 'NaN'){
-        totalExpenses.innerText = '00';
-    }
-    else{
-        totalExpenses.innerText = totalExpensesNumber;
-    }
-
     //balance 
     const balanceAmount = document.getElementById('balance');
+    //income amount
+    const incomeAmount = getInputValue('income-input');
     //error check
-    if(getTextValue('total-expenses') <= getInputValue('income-input') ){
-        balanceAmount.innerText = getInputValue('income-input') - getTextValue('total-expenses');
-        checkBalance(totalExpenses,'black','expenses-error','none');
+    if (totalExpensesNumber >= 0 && incomeAmount >= 0) {
+        totalExpenses.innerText = totalExpensesNumber;
+        //error check
+        if (totalExpensesNumber <= incomeAmount) {
+            balanceAmount.innerText = incomeAmount - getTextValue('total-expenses');
+            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
+        }
+        else {
+            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', true);
+        }
     }
-    else{
+    else {
+        totalExpenses.innerText = '00';
         balanceAmount.innerText = '00';
-        checkBalance(totalExpenses,'red','expenses-error','block');
     }
 });
 
 //save button 
-document.getElementById('save-button').addEventListener('click', function(){
+document.getElementById('save-button').addEventListener('click', function () {
     // save amount
     const saveAmount = document.getElementById('save-amount');
-    const saveAmountNumbet = getInputValue('income-input') * ( getInputValue('save-input') / 100);
-
-    if(saveAmountNumbet == 'NaN'){
-        saveAmount.innerHTML= '00'
-    }
-    else{
-        saveAmount.innerText = saveAmountNumbet;
-    }
-
+    const saveAmountNumbet = getInputValue('income-input') * (getInputValue('save-input') / 100);
     // remain amount 
     const remainAmount = document.getElementById('remain-amount');
-    
     //error check
-    if(getTextValue('save-amount') <= getTextValue('balance') ){
-        remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
-        checkBalance(saveAmount,'black','saving-error','none');
+    if (saveAmountNumbet >= 0) {
+        saveAmount.innerText = saveAmountNumbet;
+        //error check
+        if (getTextValue('save-amount') <= getTextValue('balance')) {
+            remainAmount.innerText = getTextValue('balance') - getTextValue('save-amount');
+            errorDisplay('save-amount', 'saving-error', 'saving-error', false);
+        }
+        else {
+            remainAmount.innerText = '00';
+            errorDisplay('save-amount', 'saving-error', 'saving-error', true);
+        }
     }
-    else{
-        remainAmount.innerText = '00';
-        checkBalance(saveAmount,'red','saving-error','block');
+    else {
+        saveAmount.innerHTML = '00'
     }
 });
