@@ -34,22 +34,22 @@ function mathError(displayName,errorId,isTrue){
 };
 
 
-
 // get  input id value
 function getInputValue(inputId) {
     const inputText = document.getElementById(inputId);
     const inputNumber = parseFloat(inputText.value);
-
+    //check string
     if(isNaN(inputText.value) == true){
         inputError(inputId,true);
         document.getElementById(inputId+'-error-type').innerText = 'not acceptable';
         
     }
+    //check number
     else if(isNaN(inputText.value) == false){
         inputError(inputId,true);
         document.getElementById(inputId+'-error-type').innerText = 'not nagative value';
-        
     }
+    //check empty fill
     if (inputText.value == '') {
         inputError(inputId,true);
         mathError('total-expenses','expenses',false);
@@ -76,6 +76,8 @@ function getTextValue(textId) {
     const textValue = parseFloat(text.innerText);
     return textValue;
 };
+
+
 
 //calculate button
 document.getElementById('calculate-button').addEventListener('click', function () {
