@@ -1,4 +1,3 @@
-/// all funtion ///
 
 // check error display
 function errorDisplay(amount, displayId, border, isError) {
@@ -34,6 +33,8 @@ function mathError(displayName,errorId,isTrue){
     }
 };
 
+
+
 // get  input id value
 function getInputValue(inputId) {
     const inputText = document.getElementById(inputId);
@@ -42,6 +43,11 @@ function getInputValue(inputId) {
     if(isNaN(inputText.value) == true){
         inputError(inputId,true);
         document.getElementById(inputId+'-error-type').innerText = 'not acceptable';
+        
+    }
+    else if(isNaN(inputText.value) == false){
+        inputError(inputId,true);
+        document.getElementById(inputId+'-error-type').innerText = 'not nagative value';
         
     }
     if (inputText.value == '') {
@@ -60,7 +66,6 @@ function getInputValue(inputId) {
             inputError(inputId,true);
             mathError('total-expenses','expenses',false);
             mathError('save-amount', 'saving', false);
-            document.getElementById(inputId+'-error-type').innerText = 'not nagative value';
         }
     }
 };
