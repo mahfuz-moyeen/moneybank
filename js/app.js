@@ -20,6 +20,7 @@ function getInputValue(inputId){
     const inputNumber = parseFloat(inputText.value);
     if (inputText.value == ''){
         errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
+        errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
     }
     else {
         //error check
@@ -29,6 +30,7 @@ function getInputValue(inputId){
         }
         else {
             errorDisplay(inputId + '-error', inputId + '-error', inputId, true);
+            errorDisplay('total-expenses', 'expenses-error', 'expenses-error', false);
         }
     }
 };
